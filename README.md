@@ -1,3 +1,12 @@
 # config-server
 Hierarchical json configuration management for multitenant environments
-hello world
+
+---
+### Data Modeling
+
+||Config|d|
+|:-:|
+|ID|d|
+|Version|d|
+|Date_Create|d|
+
