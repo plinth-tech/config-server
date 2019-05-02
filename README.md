@@ -55,3 +55,20 @@ Hierarchical json configuration management for multitenant environments
 </td>
  </tr>
 </table>
+
+---
+
+### URI endpoints
+
+|paths||
+|:-:|:-:|
+|config/scope|GET,POST|
+|config/scope/{id}|GET|
+|config/version/|GET,POST|
+|config/version/{id}|GET|
+|config/base|GET|
+|config/base/{id}|GET|
+
+
+It's possible to get and create a scope, if create a new one 
+It's possible to get all the versions of base and create a new one
