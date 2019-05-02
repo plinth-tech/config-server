@@ -61,14 +61,10 @@ Hierarchical json configuration management for multitenant environments
 ### URI endpoints
 
 |paths||
-|:-:|:-:|
-|config/scope|GET,POST|
-|config/scope/{id}|GET|
-|config/version/|GET,POST|
-|config/version/{id}|GET|
-|config/base|GET|
-|config/base/{id}|GET|
-
-
-It's possible to get and create a scope, if create a new one 
-It's possible to get all the versions of base and create a new one
+|:-|:-|
+|config/scopes|GET|Get all the scopes|
+|config/scopes/{id}|GET|Get a specific scope by id|
+|config/versions/|GET,POST|Get all versions, or create a new one|
+|config/versions/{id}|GET|Get a specific version by id|
+|config/bases|GET|Get all versions of base json file|
+|config/bases/{id}|GET|Get a specific base|
