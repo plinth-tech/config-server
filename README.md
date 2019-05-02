@@ -8,23 +8,23 @@ Hierarchical json configuration management for multitenant environments
  <tr>
   <td>
 
-|Config|
-|:-:|
-|ID|
-|Base_ID|
-|Version|
-|Data|
-|Tenant|
-|Date_Create|
+|config||
+|:-:|:-:|
+|id|INT|
+|base_id|INT|
+|version|VARCHAR(255)|
+|data|TEXT|
+|tenant|VARCHAR(255)|
+|created_at|TIMESTAMP|
   </td>
   <td>
 
-|Base|
-|:-:|
-|ID|
-|Version|
-|Data|
-|Date_Create|
+|base||
+|:-:|:-:|
+|id|INT|
+|version|VARCHAR(255)|
+|data|TEXT|
+|created_at|TIMESTAMP|
   </td>
  </tr>
  <tr>
