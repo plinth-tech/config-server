@@ -60,8 +60,8 @@ Hierarchical json configuration management for multitenant environments
 
 ### URI endpoints
 
-|paths||
-|:-|:-|
+|paths|||
+|:-|:-|:-|
 |config/scopes|GET|Get all the scopes|
 |config/scopes/{id}|GET|Get a specific scope by id|
 |config/versions/|GET,POST|Get all versions, or create a new one|
