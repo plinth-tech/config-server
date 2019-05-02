@@ -13,7 +13,7 @@ Hierarchical json configuration management for multitenant environments
 |id|INT|
 |base_id|INT|
 |version|VARCHAR(255)|
-|data|TEXT|
+|data|JSON|
 |tenant|VARCHAR(255)|
 |created_at|TIMESTAMP|
   </td>
@@ -23,12 +23,13 @@ Hierarchical json configuration management for multitenant environments
 |:-:|:-:|
 |id|INT|
 |version|VARCHAR(255)|
-|data|TEXT|
+|data|JSON|
 |created_at|TIMESTAMP|
   </td>
  </tr>
  <tr>
   <td>
+  
 
 * ID: Identify the new entrance;
 
