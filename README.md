@@ -3,8 +3,9 @@ Hierarchical json configuration management for multitenant environments
 
 ---
 
-### Project Dependecies
+### Project Dependencies
 
+#### Compile dependencies 
 * **spring-boot-starter-web**
 
     Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
@@ -12,21 +13,14 @@ Hierarchical json configuration management for multitenant environments
 * **spring-boot-starter-data-jpa**
     
     Starter for using Spring Data JPA with Hibernate.
-    
-* **spring-boot-starter-test**
 
-    Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest and Mockito.
- 
-* **h2**
-
-    Relational database management system to use for testing
-    
+#### Runtime dependencies
 * **slf4j-api**
     
     The slf4j API for logging.
 
 * **hibernate-types-52**
 
-    To persist JSON with hibernate
+    To persist JSON with hibernate.
 
 ---
