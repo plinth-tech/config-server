@@ -10,9 +10,9 @@ Hierarchical json configuration management for multitenant environments
 
 |config||
 |:-:|:-:|
-|id|INT|
-|base_id|INT|
-|version|VARCHAR(255)|
+|id|LONG|
+|base_id|LONG|
+|version|LONG|
 |data|JSON|
 |tenant|VARCHAR(255)|
 |created_at|TIMESTAMP|
@@ -21,8 +21,8 @@ Hierarchical json configuration management for multitenant environments
 
 |base||
 |:-:|:-:|
-|id|INT|
-|version|VARCHAR(255)|
+|id|LONG|
+|version|LONG|
 |data|JSON|
 |created_at|TIMESTAMP|
   </td>
@@ -31,27 +31,25 @@ Hierarchical json configuration management for multitenant environments
   <td>
   
 
-* ID: Identify the new entrance;
+* id: Identify the new entrance;
 
-* Base_ID: Refer to each *Base JSON* are we versioning;
+* version: Identify the new *JSON* update;
 
-* Version: Identify the new *JSON* update;
+* data: Is the concrete *JSON* data that differs from the *Base JSON*;
 
-* Data: Is the concrete *JSON* data that differs from the *Base JSON*;
+* tenant: The tenant being served;
 
-* Tenant: The tenant being served;
-
-* Date_Create: Keep the information when this version was created.
+* created_at: Keep the information when this version was created.
   </td>
 <td>
 
-* ID: Identify the new entrance;
+* id: Identify the new entrance;
 
-* Version: Identify the new *JSON* update of the *Base*;
+* version: Identify the new *JSON* update of the *Base*;
 
-* Data: Is the concrete *JSON* data;
+* data: Is the concrete *JSON* data;
 
-* Date_Create: Keep the information when this version is created.
+* created_at: Keep the information when this version is created.
 </td>
  </tr>
 </table>
