@@ -22,5 +22,9 @@ Hierarchical json configuration management for multitenant environments
 * **hibernate-types-52**
 
     To persist JSON with hibernate.
+    
+* **javax.servlet-api**
+    
+    To get HTTP Request Header
 
 ---
