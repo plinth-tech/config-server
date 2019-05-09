@@ -11,7 +11,6 @@ Hierarchical json configuration management for multitenant environments
 |config||
 |:-:|:-:|
 |id|LONG|
-|base_id|LONG|
 |version|LONG|
 |data|JSON|
 |tenant|VARCHAR(255)|
