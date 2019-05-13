@@ -12,7 +12,6 @@ Hierarchical json configuration management for multitenant environments
 |config||
 |:-:|:-:|
 |id|LONG|
-|base_id|LONG|
 |version|LONG|
 |data|JSON|
 |tenant|VARCHAR(255)|
@@ -75,3 +74,4 @@ Hierarchical json configuration management for multitenant environments
 * check the last configuration version of base inserted
     * make a GET *config/* ;
     * if exist, receive the last version posted.
+
