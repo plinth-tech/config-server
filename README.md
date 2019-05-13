@@ -11,7 +11,7 @@ Hierarchical json configuration management for multitenant environments
 |config||
 |:-:|:-:|
 |id|LONG|
-|version|VARCHAR(25)|
+|version|LONG|
 |data|JSON|
 |tenant|VARCHAR(255)|
 |created_at|TIMESTAMP|
@@ -21,7 +21,7 @@ Hierarchical json configuration management for multitenant environments
 |base||
 |:-:|:-:|
 |id|LONG|
-|version|VARCHAR(25)|
+|version|LONG|
 |data|JSON|
 |created_at|TIMESTAMP|
   </td>
