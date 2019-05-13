@@ -2,6 +2,7 @@
 Hierarchical json configuration management for multitenant environments
 
 ---
+
 ### Data Modeling
 
 <table>
@@ -28,7 +29,6 @@ Hierarchical json configuration management for multitenant environments
  </tr>
  <tr>
   <td>
-  
 
 * id: Identify the new entrance;
 
@@ -52,3 +52,26 @@ Hierarchical json configuration management for multitenant environments
 </td>
  </tr>
 </table>
+
+---
+
+### URI endpoints
+
+|paths|||
+|:-|:-|:-|
+|config/|GET, POST|Get the last version (all scopes from this version), or create a new version|
+|config/?version={version}|GET|Get a specific version (all scopes from this version)|
+|config/scopes/{scope}|GET|Get a specific scope of last version|
+|bases/|GET|Get base json file|
+
+##### Example of scenes:
+
+* update scopes
+    * make a post with some update scopes (POST config/) in json format;	
+    * create a new version and save the scopes updated/created;	
+    * return the scopes posted/saved.
+
+* check the last configuration version of base inserted
+    * make a GET *config/* ;
+    * if exist, receive the last version posted.
+
