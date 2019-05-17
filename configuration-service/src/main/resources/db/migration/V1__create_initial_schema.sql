@@ -4,5 +4,4 @@ create table config (
     data_json json not null,
     tenant varchar(255) not null,
     version bigint not null,
-    primary key (id)
-) engine=InnoDB AUTO_INCREMENT=1;
+    primary key (id));
