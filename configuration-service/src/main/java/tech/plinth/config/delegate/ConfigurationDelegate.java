@@ -32,10 +32,10 @@ public class ConfigurationDelegate {
 
         Configuration configurationSaved = configurationRepository.save(configuration);
 
-        logger.debug("PlatformId:{} RequestId:{} Message: New version of configuration service created: id: {}, version: {}, tenant: {}, data: {}",
+        logger.debug("PlatformId:{} RequestId:{} Message: New version of configuration service created: id: {}, version: {}, platform: {}, data: {}",
                 requestContext.getPlatformId(), requestContext.getRequestId(),
                 configurationSaved.getId(), configuration.getVersion(),
-                configuration.getTenant(), configuration.getDataJson());
+                configuration.getPlatform(), configuration.getDataJson());
 
         return configurationSaved.getDataJson();
     }
@@ -48,7 +48,7 @@ public class ConfigurationDelegate {
      */
     public Long calculateNextVersionNumber(String platformId) {
 
-        List<Configuration> allVersions = configurationRepository.findByTenant(platformId);
+        List<Configuration> allVersions = configurationRepository.findByPlatform(platformId);
         logger.debug("PlatformId:{} RequestId:{} Message: Number of versions created so far by {}: {}",
                 requestContext.getPlatformId(), requestContext.getRequestId(), platformId, allVersions.size());
 

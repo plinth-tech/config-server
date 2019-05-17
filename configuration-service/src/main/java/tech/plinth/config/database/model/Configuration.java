@@ -26,15 +26,15 @@ public class Configuration {
     @Column(name = "version")
     private Long version;
 
-    @NotNull
+    @NotNull(message = "To create a new version is needed data")
     @Type(type = "json-node")
     @Column(name = "data_json", columnDefinition = "json")
     private JsonNode dataJson;
 
-    @NotNull(message = "Tenant identification can't be null")
-    @Column(name = "tenant")
+    @NotNull(message = "Platform identification can't be null")
+    @Column(name = "platform")
     @Size(max = 255)
-    private String tenant;
+    private String platform;
 
     @Column(name = "created_at", updatable = false)
     private OffsetDateTime createdAt;
@@ -43,8 +43,8 @@ public class Configuration {
     public Configuration() {
     }
 
-    public Configuration(String tenant, JsonNode data, Long version) {
-        this.tenant = tenant;
+    public Configuration(String platform, JsonNode data, Long version) {
+        this.platform = platform;
         this.dataJson = data;
         this.version = version;
 
@@ -67,12 +67,12 @@ public class Configuration {
         this.version = version;
     }
 
-    public String getTenant() {
-        return tenant;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setTenant(String tenant) {
-        this.tenant = tenant;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     public JsonNode getDataJson() {

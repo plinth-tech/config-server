@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ConfigurationRepository extends JpaRepository<Configuration, Long> {
-    List<Configuration> findByTenant(String platformId);
+    List<Configuration> findByPlatform(String platformId);
 }

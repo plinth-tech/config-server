@@ -17,14 +17,14 @@ public class ConfigurationController {
 
     /**
      * This endpoint receive a json, this json will be a new version (a update) of base file
-     * From the header come the tenant, to be saved in db together with the json data
+     * From the header come the platform, to be saved in db together with the json data
      * Will return the json saved
      *
-     * @param data_json
+     * @param dataJson
      * @return
      */
     @PostMapping("/config")
-    public JsonNode createNewVersion(@RequestBody JsonNode data_json) {
-        return configurationDelegate.createNewVersion(data_json);
+    public JsonNode createNewVersion(@RequestBody JsonNode dataJson) {
+        return configurationDelegate.createNewVersion(dataJson);
     }
 }
