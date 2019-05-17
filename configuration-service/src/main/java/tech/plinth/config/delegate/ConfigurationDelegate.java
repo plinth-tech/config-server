@@ -1,6 +1,8 @@
 package tech.plinth.config.delegate;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tech.plinth.config.database.model.Configuration;
@@ -13,6 +15,8 @@ import java.util.List;
 @Component
 public class ConfigurationDelegate {
 
+    private static final Logger logger = LoggerFactory.getLogger(ConfigurationDelegate.class);
+
     @Autowired
     private ConfigurationRepository configurationRepository;
 
@@ -22,18 +26,18 @@ public class ConfigurationDelegate {
 
     public JsonNode createNewVersion(JsonNode data) {
 
-        Long version = calculateNextVersionNumber();
+        Long version = calculateNextVersionNumber(requestContext.getPlatformId());
 
-        // create the new version
         Configuration configuration = new Configuration(requestContext.getPlatformId(), data, version);
 
         Configuration configurationSaved = configurationRepository.save(configuration);
 
-//        logger.info("New version of configuration service created: id: {}, version: {}, tenant: {}, data: {}",
-//                configurationSaved.getId(), configuration.getVersion(),
-//                configuration.getTenant(), configuration.getData());
+        logger.debug("PlatformId:{} RequestId:{} Message: New version of configuration service created: id: {}, version: {}, tenant: {}, data: {}",
+                requestContext.getPlatformId(), requestContext.getRequestId(),
+                configurationSaved.getId(), configuration.getVersion(),
+                configuration.getTenant(), configuration.getDataJson());
 
-        return configurationSaved.getData();
+        return configurationSaved.getDataJson();
     }
 
     /**
@@ -42,8 +46,11 @@ public class ConfigurationDelegate {
      *
      * @return
      */
-    public Long calculateNextVersionNumber() {
-        List<Configuration> allVersions = configurationRepository.findAll();
+    public Long calculateNextVersionNumber(String platformId) {
+
+        List<Configuration> allVersions = configurationRepository.findByTenant(platformId);
+        logger.debug("PlatformId:{} RequestId:{} Message: Number of versions created so far by {}: {}",
+                requestContext.getPlatformId(), requestContext.getRequestId(), platformId, allVersions.size());
 
         Long version = 0L;
 
@@ -54,7 +61,8 @@ public class ConfigurationDelegate {
                     .max(Long::compare).get();
         }
 
-//        logger.info("The last configuration created as the version: {}", version);
+        logger.debug("PlatformId:{} RequestId:{} Message: The last configuration created of {} as the version: {}",
+                requestContext.getPlatformId(), requestContext.getRequestId(), platformId, version);
 
         version = version + 1L;
         return version;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RequestContext {
     private String platformId;
+    private String requestId;
 
     public RequestContext() {
     }
@@ -17,4 +18,11 @@ public class RequestContext {
         this.platformId = platformId;
     }
 
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 }

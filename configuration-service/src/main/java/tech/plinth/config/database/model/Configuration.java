@@ -29,7 +29,7 @@ public class Configuration {
     @NotNull
     @Type(type = "json-node")
     @Column(name = "data_json", columnDefinition = "json")
-    private JsonNode data_json;
+    private JsonNode dataJson;
 
     @NotNull(message = "Tenant identification can't be null")
     @Column(name = "tenant")
@@ -45,10 +45,11 @@ public class Configuration {
 
     public Configuration(String tenant, JsonNode data, Long version) {
         this.tenant = tenant;
-        this.data_json = data;
+        this.dataJson = data;
         this.version = version;
 
     }
+
 
     public Long getId() {
         return id;
@@ -66,14 +67,6 @@ public class Configuration {
         this.version = version;
     }
 
-    public JsonNode getData() {
-        return data_json;
-    }
-
-    public void setData(JsonNode data) {
-        this.data_json = data;
-    }
-
     public String getTenant() {
         return tenant;
     }
@@ -82,9 +75,20 @@ public class Configuration {
         this.tenant = tenant;
     }
 
-    @PrePersist
-    public void initCreatedAt() {
-        this.createdAt = OffsetDateTime.now();
+    public JsonNode getDataJson() {
+        return dataJson;
+    }
+
+    public void setDataJson(JsonNode dataJson) {
+        this.dataJson = dataJson;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
 
