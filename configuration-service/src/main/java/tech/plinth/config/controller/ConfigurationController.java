@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.plinth.config.delegate.ConfigurationDelegate;
 
-import javax.servlet.http.HttpServletRequest;
-
 @RestController
 public class ConfigurationController {
 

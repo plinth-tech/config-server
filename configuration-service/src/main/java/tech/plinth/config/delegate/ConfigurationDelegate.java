@@ -35,7 +35,6 @@ public class ConfigurationDelegate {
                 requestContext.getPlatformId(), requestContext.getRequestId(),
                 configurationSaved.getId(), configuration.getVersion(),
                 configuration.getPlatform(), configuration.getDataJson());
-
         return configurationSaved.getDataJson();
     }
 
