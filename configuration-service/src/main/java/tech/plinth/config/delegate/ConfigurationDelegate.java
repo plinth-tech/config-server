@@ -53,10 +53,12 @@ public class ConfigurationDelegate {
 
         if (lastVersion != null) {
             newVersion = lastVersion.getVersion() + 1L;
+            logger.debug("PlatformId:{} RequestId:{} Message: The last configuration created of {} as the version: {}",
+                    requestContext.getPlatformId(), requestContext.getRequestId(), platformId, lastVersion.getVersion());
         }
 
-        logger.debug("PlatformId:{} RequestId:{} Message: The last configuration created of {} as the version: {}",
-                requestContext.getPlatformId(), requestContext.getRequestId(), platformId, lastVersion.getVersion());
+        logger.debug("PlatformId:{} RequestId:{} Message: First version for platform {}",
+                requestContext.getPlatformId(), requestContext.getRequestId(), platformId);
 
         return newVersion;
     }
