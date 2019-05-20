@@ -30,7 +30,7 @@ public class ConfigureRequestContext implements HandlerInterceptor {
 
         String platformId = httpServletRequest.getHeader(HEADER_PLATFORM_ID);
 
-        if (platformId == null || platformId.isBlank() || platformId.isEmpty()) {
+        if (platformId == null || platformId.isBlank()) {
             httpServletResponse.sendError(HttpStatus.BAD_REQUEST.value());
             logger.error("PlatformId:{} RequestId:'' Message: Platform identification not specified",
                     platformId);

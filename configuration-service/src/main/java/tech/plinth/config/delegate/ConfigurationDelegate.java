@@ -10,7 +10,6 @@ import tech.plinth.config.database.repository.ConfigurationRepository;
 import tech.plinth.config.interceptor.model.RequestContext;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Component
 public class ConfigurationDelegate {
@@ -42,30 +41,24 @@ public class ConfigurationDelegate {
 
     /**
      * define and return the next version number to be created
-     * find the max version number in DB and the next version will be the max version number + 1
+     * find the max version number in DB and the next version will be the that version number + 1
      *
      * @return
      */
     public Long calculateNextVersionNumber(String platformId) {
 
-        List<Configuration> allVersions = configurationRepository.findByPlatform(platformId);
-        logger.debug("PlatformId:{} RequestId:{} Message: Number of versions created so far by {}: {}",
-                requestContext.getPlatformId(), requestContext.getRequestId(), platformId, allVersions.size());
+        Configuration lastVersion = configurationRepository.findTopByPlatformOrderByVersionDesc(platformId);
 
-        Long version = 0L;
+        Long newVersion = 0L;
 
-        if (allVersions.size() != 0) {
-            // get last version inserted in DB
-            version = allVersions.stream()
-                    .map(configuration -> configuration.getVersion())
-                    .max(Long::compare).get();
+        if (lastVersion != null) {
+            newVersion = lastVersion.getVersion() + 1L;
         }
 
         logger.debug("PlatformId:{} RequestId:{} Message: The last configuration created of {} as the version: {}",
-                requestContext.getPlatformId(), requestContext.getRequestId(), platformId, version);
+                requestContext.getPlatformId(), requestContext.getRequestId(), platformId, lastVersion.getVersion());
 
-        version = version + 1L;
-        return version;
+        return newVersion;
     }
 
 
