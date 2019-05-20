@@ -42,12 +42,13 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.13</version>
+                <version>${mysql.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
-                <version>5.2.4</version>
+                <version>${flyway.version}</version>
+
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,5 +1,6 @@
 package tech.plinth.config.interceptor;
 
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,7 @@ public class ConfigureRequestContext implements HandlerInterceptor {
                              Object o) throws Exception {
 
         String platformId = httpServletRequest.getHeader(HEADER_PLATFORM_ID);
-
-        if (platformId == null || platformId.isBlank()) {
+        if (Strings.isBlank(platformId)) {
             httpServletResponse.sendError(HttpStatus.BAD_REQUEST.value());
             logger.error("PlatformId:{} RequestId:'' Message: Platform identification not specified",
                     platformId);
