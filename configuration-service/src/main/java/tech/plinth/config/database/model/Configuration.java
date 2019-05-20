@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 public class Configuration {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", updatable = false)
     private Long id;
@@ -26,7 +26,7 @@ public class Configuration {
     @Column(name = "version")
     private Long version;
 
-    @NotNull(message = "To create a new version is needed data")
+    @NotNull(message = "No data to create a new version")
     @Type(type = "json-node")
     @Column(name = "data_json", columnDefinition = "json")
     private JsonNode dataJson;
@@ -36,8 +36,8 @@ public class Configuration {
     @Size(max = 255)
     private String platform;
 
-    @Column(name = "created_at", updatable = false)
-    private OffsetDateTime createdAt;
+    @Column(name = "creation_date", updatable = false)
+    private OffsetDateTime creationDate;
 
 
     public Configuration() {
@@ -47,7 +47,6 @@ public class Configuration {
         this.platform = platform;
         this.dataJson = data;
         this.version = version;
-
     }
 
 
@@ -83,13 +82,8 @@ public class Configuration {
         this.dataJson = dataJson;
     }
 
-    public OffsetDateTime getCreatedAt() {
-        return createdAt;
+    public OffsetDateTime getCreationDate() {
+        return creationDate;
     }
-
-    public void setCreatedAt(OffsetDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
 
 }
