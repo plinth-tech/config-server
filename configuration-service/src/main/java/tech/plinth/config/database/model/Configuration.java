@@ -49,26 +49,6 @@ public class Configuration {
         this.version = version;
     }
 
-    public Configuration build() {
-        return new Configuration()          ;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
     public String getPlatform() {
         return platform;
     }
@@ -89,4 +69,50 @@ public class Configuration {
         return creationDate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public static class Builder {
+        private String platform;
+        private JsonNode data;
+        private Long version;
+
+        public Builder version(Long version) {
+            this.version = version;
+            return this;
+        }
+
+        public Builder platform(String platform) {
+            this.platform = platform;
+            return this;
+        }
+
+        public Builder data(JsonNode node) {
+            this.data = node;
+            return this;
+        }
+
+        public Configuration build() {
+            Configuration configuration = new Configuration();
+            configuration.setVersion(this.version);
+            configuration.setPlatform(this.platform);
+            configuration.setDataJson(this.data);
+
+            return configuration;
+        }
+
+    }
 }

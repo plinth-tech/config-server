@@ -10,7 +10,6 @@ import tech.plinth.config.database.repository.ConfigurationRepository;
 import tech.plinth.config.interceptor.model.RequestContext;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 @Component
 public class ConfigurationDelegate {
@@ -29,7 +28,6 @@ public class ConfigurationDelegate {
         Long version = calculateNextVersionNumber(requestContext.getPlatformId());
 
         Configuration configuration = new Configuration(requestContext.getPlatformId(), data, version);
-
         Configuration configurationSaved = configurationRepository.save(configuration);
 
         logger.debug("PlatformId:{} RequestId:{} Message: New version of configuration service created",
@@ -43,13 +41,11 @@ public class ConfigurationDelegate {
      * find the max version number in DB and the next version will be the that version number + 1
      */
     public Long calculateNextVersionNumber(String platformId) {
-
-        Optional<Configuration> lastVersion = configurationRepository.findTopByPlatformOrderByVersionDesc(platformId);
-
-        logger.debug("PlatformId:{} RequestId:{} Message: New version number calculated");
-
-        return lastVersion.isPresent() ? lastVersion.get().getVersion() + 1L : 0L;
-
+        return configurationRepository.findTopByPlatformOrderByVersionDesc(platformId)
+                .orElse(new Configuration.Builder()
+                        .version(0L)
+                        .build())
+                .getVersion() + 1L;
     }
 
 }
