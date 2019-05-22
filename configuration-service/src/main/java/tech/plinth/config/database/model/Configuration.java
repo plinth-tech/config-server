@@ -49,6 +49,9 @@ public class Configuration {
         this.version = version;
     }
 
+    public Configuration build() {
+        return new Configuration()          ;
+    }
 
     public Long getId() {
         return id;

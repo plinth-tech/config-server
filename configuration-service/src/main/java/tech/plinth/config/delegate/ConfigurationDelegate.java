@@ -10,6 +10,7 @@ import tech.plinth.config.database.repository.ConfigurationRepository;
 import tech.plinth.config.interceptor.model.RequestContext;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Component
 public class ConfigurationDelegate {
@@ -31,36 +32,24 @@ public class ConfigurationDelegate {
 
         Configuration configurationSaved = configurationRepository.save(configuration);
 
-        logger.debug("PlatformId:{} RequestId:{} Message: New version of configuration service created: id: {}, version: {}, platform: {}, data: {}",
-                requestContext.getPlatformId(), requestContext.getRequestId(),
-                configurationSaved.getId(), configuration.getVersion(),
-                configuration.getPlatform(), configuration.getDataJson());
+        logger.debug("PlatformId:{} RequestId:{} Message: New version of configuration service created",
+                requestContext.getPlatformId(), requestContext.getRequestId());
+
         return configurationSaved.getDataJson();
     }
 
     /**
      * define and return the next version number to be created
      * find the max version number in DB and the next version will be the that version number + 1
-     *
-     * @return
      */
     public Long calculateNextVersionNumber(String platformId) {
 
-        Configuration lastVersion = configurationRepository.findTopByPlatformOrderByVersionDesc(platformId);
+        Optional<Configuration> lastVersion = configurationRepository.findTopByPlatformOrderByVersionDesc(platformId);
 
-        Long newVersion = 0L;
+        logger.debug("PlatformId:{} RequestId:{} Message: New version number calculated");
 
-        if (lastVersion != null) {
-            newVersion = lastVersion.getVersion() + 1L;
-            logger.debug("PlatformId:{} RequestId:{} Message: The last configuration created of {} as the version: {}",
-                    requestContext.getPlatformId(), requestContext.getRequestId(), platformId, lastVersion.getVersion());
-        }
+        return lastVersion.isPresent() ? lastVersion.get().getVersion() + 1L : 0L;
 
-        logger.debug("PlatformId:{} RequestId:{} Message: First version for platform {}",
-                requestContext.getPlatformId(), requestContext.getRequestId(), platformId);
-
-        return newVersion;
     }
-
 
 }
