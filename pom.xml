@@ -30,8 +30,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20180813</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladmihalcea</groupId>
+                <artifactId>hibernate-types-52</artifactId>
+                <version>2.4.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
