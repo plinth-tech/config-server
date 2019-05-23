@@ -39,6 +39,11 @@
                 <artifactId>hibernate-types-52</artifactId>
                 <version>2.4.3</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.fge</groupId>
+                <artifactId>json-patch</artifactId>
+                <version>1.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
