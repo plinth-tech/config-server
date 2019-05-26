@@ -77,11 +77,10 @@ public class ConfigurationDelegate {
     }
 
     /**
-     * match A-Z a-z ' ' _ -
-     * size min=1 max=255
+     * Hostname FQDN validation
      */
     public Boolean validPlatform(String platform) {
-        return Pattern.matches("[A-Za-z1-9 _-]{1,255}", platform);
+        return Pattern.matches("(?=^.{2,255}$)(^((?!-)[a-zA-Z0-9-_]{1,}[a-zA-Z0-9-_]\\.)+[a-zA-Z]{2,}$)", platform);
     }
 
 
