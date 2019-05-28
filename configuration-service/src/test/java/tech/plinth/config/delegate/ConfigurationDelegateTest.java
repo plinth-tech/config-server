@@ -4,12 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.server.ResponseStatusException;
 import tech.plinth.config.database.model.Base;
 import tech.plinth.config.database.model.Configuration;
@@ -20,14 +21,12 @@ import tech.plinth.config.interceptor.model.RequestContext;
 import java.io.IOException;
 import java.util.Optional;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-@RunWith(MockitoJUnitRunner.class)
+@EnableAutoConfiguration(exclude = FlywayAutoConfiguration.class)
+@SpringBootTest
 public class ConfigurationDelegateTest {
 
     @Mock
@@ -54,7 +53,7 @@ public class ConfigurationDelegateTest {
     private JsonMergePatch patch;
     private JsonNode jsonMerged;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         baseVersion = 1L;
         configurationPlatform = "configuration.plinth.com";
@@ -102,7 +101,7 @@ public class ConfigurationDelegateTest {
         jsonMerged = patch.apply(base.getDataJson());
 
         assertEquals(configurationDelegate.getLastVersion(), jsonMerged);
-        assertThat(configurationDelegate.getLastVersion(), not(baseJsonNode));
+        assertNotEquals(configurationDelegate.getLastVersion(), baseJsonNode);
         assertEquals(configurationDelegate.getLastVersion(), configurationJsonNode);
     }
 
@@ -128,8 +127,8 @@ public class ConfigurationDelegateTest {
         jsonMerged = patch.apply(base.getDataJson());
 
         assertEquals(configurationDelegate.getLastVersion(), jsonMerged);
-        assertThat(configurationDelegate.getLastVersion(), not(baseJsonNode));
-        assertThat(configurationDelegate.getLastVersion(), not(configurationJsonNode));
+        assertNotEquals(configurationDelegate.getLastVersion(), baseJsonNode);
+        assertNotEquals(configurationDelegate.getLastVersion(), configurationJsonNode);
     }
 
     @Test
@@ -157,8 +156,8 @@ public class ConfigurationDelegateTest {
         jsonMerged = patch.apply(base.getDataJson());
 
         assertEquals(configurationDelegate.getLastVersion(), jsonMerged);
-        assertThat(configurationDelegate.getLastVersion(), not(baseJsonNode));
-        assertThat(configurationDelegate.getLastVersion(), not(configurationJsonNode));
+        assertNotEquals(configurationDelegate.getLastVersion(), baseJsonNode);
+        assertNotEquals(configurationDelegate.getLastVersion(), configurationJsonNode);
         assertNull(jsonMerged.get("config1").get("config12"));
         assertEquals(jsonMerged.get("config1").size(), 1);
     }
