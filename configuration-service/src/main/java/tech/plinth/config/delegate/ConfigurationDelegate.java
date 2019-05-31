@@ -63,7 +63,7 @@ public class ConfigurationDelegate {
 
         JsonNode jsonVersionData = configurationRepository.findTopByPlatformOrderByVersionDesc(requestContext.getPlatformId())
                 .orElseThrow(() -> {
-                    logger.error("Platform:{} RequestId:{} Message: No configuration defined to this platform",
+                    logger.warn("Platform:{} RequestId:{} Message: No configuration defined to this platform",
                             requestContext.getPlatformId(), requestContext.getRequestId());
                     return new ResponseStatusException(HttpStatus.NOT_FOUND, "No configuration defined to this platform");
                 }).getDataJson();
@@ -71,7 +71,7 @@ public class ConfigurationDelegate {
 
         JsonNode jsonBaseData = baseRepository.findTopByOrderByVersionDesc()
                 .orElseThrow(() -> {
-                    logger.error("Platform:{} RequestId:{} Message: No Base configuration found");
+                    logger.warn("Platform:{} RequestId:{} Message: No Base configuration found");
                     return new ResponseStatusException(HttpStatus.NOT_FOUND, "No Base configuration found");
                 }).getDataJson();
 
