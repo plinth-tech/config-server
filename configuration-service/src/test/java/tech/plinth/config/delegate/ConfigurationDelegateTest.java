@@ -21,11 +21,9 @@ import tech.plinth.config.interceptor.model.RequestContext;
 import java.io.IOException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @EnableAutoConfiguration(exclude = FlywayAutoConfiguration.class)
@@ -71,7 +69,6 @@ public class ConfigurationDelegateTest {
     public void getVersionWithNullTest() throws JsonPatchException {
         try {
             configurationDelegate.getVersion(null);
-            fail("Exception not thrown");
         } catch (ResponseStatusException ex) {
             assertEquals(ex.getStatus(), BAD_REQUEST);
         }
@@ -83,7 +80,6 @@ public class ConfigurationDelegateTest {
 
         try {
             configurationDelegate.getVersion(configurationVersion);
-            fail("Exception not thrown");
         } catch (ResponseStatusException ex) {
             assertEquals(ex.getStatus(), NOT_FOUND);
         }
@@ -104,7 +100,7 @@ public class ConfigurationDelegateTest {
         assertEquals(configurationDelegate.getVersion(configurationVersion), configuration.getDataJson());
 
     }
-    @Test
+
     public void newConfigurationEqualsBase() throws IOException, JsonPatchException {
 
         baseJsonNode = mapper.readTree("{\"config1\":\"config1\"}");
@@ -211,7 +207,6 @@ public class ConfigurationDelegateTest {
 
         try {
             configurationDelegate.getLastVersion();
-            fail("Exception not thrown");
         } catch (Exception ex) {
             assertEquals(((ResponseStatusException) ex).getStatus(), NOT_FOUND);
         }
@@ -229,7 +224,6 @@ public class ConfigurationDelegateTest {
 
         try {
             configurationDelegate.getLastVersion();
-            fail("Exception not thrown");
         } catch (Exception ex) {
             assertEquals(((ResponseStatusException) ex).getStatus(), NOT_FOUND);
         }

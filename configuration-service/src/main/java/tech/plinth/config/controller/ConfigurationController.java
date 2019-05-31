@@ -3,13 +3,7 @@ package tech.plinth.config.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import tech.plinth.config.delegate.ConfigurationDelegate;
 
 @RestController
@@ -35,8 +29,7 @@ public class ConfigurationController {
     public JsonNode getVersion(@RequestParam("version") Long version) throws JsonPatchException {
         if (version == null) {
             return configurationDelegate.getLastVersion();
-        }
-        else {
+        } else {
             return configurationDelegate.getVersion(version);
         }
     }
