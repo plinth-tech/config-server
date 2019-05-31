@@ -33,8 +33,7 @@ public class Base {
     @Column(name = "creation_date", updatable = false)
     private OffsetDateTime creationDate;
 
-    public Base() {
-    }
+    public Base() {}
 
     public Base(Long version, JsonNode dataJson) {
         this.version = version;
@@ -71,4 +70,3 @@ public class Base {
 
 
 }
-

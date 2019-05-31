@@ -11,8 +11,3 @@ public interface BaseRepository extends JpaRepository<Base, Long> {
 
     Optional<Base> findTopByOrderByVersionDesc();
 }
-
-
-
-
-

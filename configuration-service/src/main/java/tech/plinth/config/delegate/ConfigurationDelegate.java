@@ -94,4 +94,29 @@ public class ConfigurationDelegate {
                 .getVersion() + 1L;
     }
 
+    /**
+     * return last version merged with base configuration from that platform
+     */
+    public JsonNode getLastVersion() throws JsonPatchException {
+
+        JsonNode jsonVersionData = configurationRepository.findTopByPlatformOrderByVersionDesc(requestContext.getPlatformId())
+                .orElseThrow(() -> {
+                    logger.error("Platform:{} RequestId:{} Message: No configuration defined to this platform",
+                            requestContext.getPlatformId(), requestContext.getRequestId());
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "No configuration defined to this platform");
+                }).getDataJson();
+
+
+        JsonNode jsonBaseData = baseRepository.findTopByOrderByVersionDesc()
+                .orElseThrow(() -> {
+                    logger.error("Platform:{} RequestId:{} Message: No Base configuration found");
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "No Base configuration found");
+                }).getDataJson();
+
+        JsonMergePatch patch = JsonMergePatch.fromJson(jsonVersionData);
+
+        JsonNode jsonMerged = patch.apply(jsonBaseData);
+
+        return jsonMerged;
+    }
 }
