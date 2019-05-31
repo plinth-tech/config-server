@@ -50,7 +50,7 @@ public class ConfigurationDelegateTest {
         version = 40L;
         nextVersion = 41L;
 
-        platform = "plinth-test1";
+        platform = "plinth-test1.com";
 
         ObjectMapper mapper = new ObjectMapper();
         jsonNode = mapper.readTree("{\"config1\":\"config1\"}");
@@ -129,7 +129,7 @@ public class ConfigurationDelegateTest {
      */
     @Test
     public void platformRegEx(){
-        String denyPlatform = "plinth%$^~";
+        String denyPlatform = "plinth%$^~.";
         when(requestContext.getPlatformId()).thenReturn(denyPlatform);
 
         Configuration configuration;
