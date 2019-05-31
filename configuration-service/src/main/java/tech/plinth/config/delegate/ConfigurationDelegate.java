@@ -1,11 +1,16 @@
 package tech.plinth.config.delegate;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import tech.plinth.config.database.model.Configuration;
+import tech.plinth.config.database.repository.BaseRepository;
 import tech.plinth.config.database.repository.ConfigurationRepository;
 import tech.plinth.config.interceptor.model.RequestContext;
 
@@ -18,6 +23,9 @@ public class ConfigurationDelegate {
 
     @Autowired
     private ConfigurationRepository configurationRepository;
+
+    @Autowired
+    private BaseRepository baseRepository;
 
     @Resource
     private RequestContext requestContext;
@@ -48,4 +56,29 @@ public class ConfigurationDelegate {
                 .getVersion() + 1L;
     }
 
+    /**
+     * return last version merged with base configuration from that platform
+     */
+    public JsonNode getLastVersion() throws JsonPatchException {
+
+        JsonNode jsonVersionData = configurationRepository.findTopByPlatformOrderByVersionDesc(requestContext.getPlatformId())
+                .orElseThrow(() -> {
+                    logger.warn("Platform:{} RequestId:{} Message: No configuration defined to this platform",
+                            requestContext.getPlatformId(), requestContext.getRequestId());
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "No configuration defined to this platform");
+                }).getDataJson();
+
+
+        JsonNode jsonBaseData = baseRepository.findTopByOrderByVersionDesc()
+                .orElseThrow(() -> {
+                    logger.warn("Platform:{} RequestId:{} Message: No Base configuration found");
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "No Base configuration found");
+                }).getDataJson();
+
+        JsonMergePatch patch = JsonMergePatch.fromJson(jsonVersionData);
+
+        JsonNode jsonMerged = patch.apply(jsonBaseData);
+
+        return jsonMerged;
+    }
 }
