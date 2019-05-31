@@ -145,7 +145,7 @@ public class ConfigurationDelegateTest {
     }
 
     /**
-     * accept all king of characters in json
+     * accept all kind of characters in json
      */
     @Test
     public void jsonWithSpecialCharacters() throws IOException {
