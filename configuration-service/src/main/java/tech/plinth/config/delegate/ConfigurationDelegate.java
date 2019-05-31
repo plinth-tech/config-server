@@ -45,7 +45,6 @@ public class ConfigurationDelegate {
     }
 
     /**
-     * ®
      * define and return the next version number to be created
      * find the max version number in DB and the next version will be the that version number + 1
      */
@@ -66,13 +65,15 @@ public class ConfigurationDelegate {
                 .orElseThrow(() -> {
                     logger.error("Platform:{} RequestId:{} Message: No configuration defined to this platform",
                             requestContext.getPlatformId(), requestContext.getRequestId());
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No configuration defined to this platform");
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "No configuration defined to this platform");
                 }).getDataJson();
 
-        JsonNode jsonBaseData = baseRepository.findTopByOrderByVersionDesc().orElseThrow(() -> {
-            logger.error("Platform:{} RequestId:{} Message: No Base configuration found");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Base configuration found");
-        }).getDataJson();
+
+        JsonNode jsonBaseData = baseRepository.findTopByOrderByVersionDesc()
+                .orElseThrow(() -> {
+                    logger.error("Platform:{} RequestId:{} Message: No Base configuration found");
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "No Base configuration found");
+                }).getDataJson();
 
         JsonMergePatch patch = JsonMergePatch.fromJson(jsonVersionData);
 
