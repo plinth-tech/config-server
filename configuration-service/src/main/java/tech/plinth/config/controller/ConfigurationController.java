@@ -1,10 +1,9 @@
 package tech.plinth.config.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.plinth.config.delegate.ConfigurationDelegate;
 
 @RestController
@@ -25,4 +24,10 @@ public class ConfigurationController {
     public JsonNode createNewVersion(@RequestBody JsonNode dataJson) {
         return configurationDelegate.createNewVersion(dataJson);
     }
+
+    @GetMapping("/config")
+    public JsonNode getVersion(@RequestParam("version") Long version) throws JsonPatchException {
+        return configurationDelegate.getVersion(version);
+    }
+
 }
