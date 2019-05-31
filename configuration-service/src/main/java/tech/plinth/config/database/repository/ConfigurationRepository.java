@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ConfigurationRepository extends JpaRepository<Configuration, Long> {
     Optional<Configuration> findTopByPlatformOrderByVersionDesc(String platformId);
+
+    Optional<Configuration> findByPlatformAndVersion(String configurationPlatform, Long configurationVersion);
 }
